@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Thi Thử Tốt Nghiệp Toán 12 - Mã 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Cấu hình MathJax
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            startup: {
+                pageReady: () => {
+                    return MathJax.startup.defaultPageReady();
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; color: #1f2937; }
+        .explanation { display: none; background-color: #ecfdf5; border-left: 4px solid #10b981; padding: 1rem; margin-top: 1rem; border-radius: 0.25rem; }
+        .explanation.show { display: block; }
+        .math-formula { font-size: 1.1em; }
+        .correct-bg { background-color: #d1fae5; border-color: #10b981; }
+        .wrong-bg { background-color: #fee2e2; border-color: #ef4444; }
+        input[type="text"] { border: 1px solid #d1d5db; padding: 0.5rem; border-radius: 0.25rem; width: 100%; max-width: 200px; }
+        input[type="text"]:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+<div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-10">
+    <h1 class="text-3xl font-bold text-center mb-2">ĐỀ THI THỬ TỐT NGHIỆP - MÃ ĐỀ 10</h1>
+    <p class="text-center text-gray-500 mb-8 border-b pb-4">Môn: TOÁN, Lớp 12 - Thời gian: 90 phút</p>
+
+    <div id="quiz-container">
+        <!-- Phần I -->
+        <div class="mb-10">
+            <h2 class="text-xl font-bold mb-4 uppercase text-blue-700">Phần I. Câu trắc nghiệm nhiều phương án lựa chọn. Thí sinh trả lời từ câu 1 đến câu 12. Mỗi câu hỏi thí sinh chỉ chọn một phương án.</h2>
+            <div id="part1-container" class="space-y-6"></div>
+        </div>
+
+        <!-- Phần II -->
+        <div class="mb-10">
+            <h2 class="text-xl font-bold mb-4 uppercase text-blue-700">Phần II. Câu trắc nghiệm đúng sai. Thí sinh trả lời từ câu 1 đến câu 4. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn đúng hoặc sai.</h2>
+            <div id="part2-container" class="space-y-8"></div>
+        </div>
+
+        <!-- Phần III -->
+        <div class="mb-10">
+            <h2 class="text-xl font-bold mb-4 uppercase text-blue-700">Phần III. Câu trắc nghiệm trả lời ngắn. Thí sinh trả lời từ câu 1 đến câu 6.</h2>
+            <div id="part3-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <!-- Kết quả & Nút -->
+    <div class="mt-8 border-t pt-6 text-center">
+        <button id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-md">
+            Kết thúc
+        </button>
+        <div id="result-box" class="hidden mt-6 p-6 bg-blue-50 border border-blue-200 rounded-lg">
+            <h3 class="text-2xl font-bold text-blue-800 mb-2">Kết quả của bạn</h3>
+            <p id="score-text" class="text-3xl font-extrabold text-red-600"></p>
+            <p class="text-gray-600 mt-2">Vui lòng xem lại lời giải chi tiết ở bên dưới từng câu hỏi.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // DỮ LIỆU ĐỀ THI (MÃ ĐỀ 10)
+    const part1Data = [
+        { id: 1, text: "Cho hình chóp S.ABCD có đáy ABCD là tứ giác lồi và $SA\\perp(ABCD)$.<br><div class='text-center my-3'><img src='1I.png' alt='Hình câu 1' class='inline-block max-h-48 border rounded' onerror=\"this.style.display='none'\"></div>Góc giữa SB và mặt phẳng (ABCD) là", options: ["A. $\\widehat{SCA}$.", "B. $\\widehat{SAB}$.", "C. $\\widehat{SDA}$.", "D. $\\widehat{SBA}$."], correct: 3, exp: "Vì $SA \\perp (ABCD)$ nên hình chiếu vuông góc của đoạn thẳng SB lên mặt phẳng (ABCD) là đoạn thẳng AB. Vậy góc giữa SB và (ABCD) là góc $\\widehat{SBA}$." },
+        { id: 2, text: "Trong không gian Oxyz, đường thẳng đi qua hai điểm $A(-1;1;0)$ và $B(3;2;-1)$ có một vectơ chỉ phương là", options: ["A. $\\vec{a}=(2;1;1)$.", "B. $\\vec{b}=(2;1;-1)$.", "C. $\\vec{v}=(4;1;1)$.", "D. $\\vec{u}=(4;1;-1)$."], correct: 3, exp: "Đường thẳng đi qua A và B có véctơ chỉ phương là $\\vec{AB} = (3 - (-1); 2 - 1; -1 - 0) = (4; 1; -1)$. Đối chiếu đáp án ta thấy $\\vec{u}=(4;1;-1)$ là phù hợp." },
+        { id: 3, text: "Tất cả các nghiệm của phương trình $\\cos x=\\cos 24^{\\circ}$ là", options: ["A. $x=24^{\\circ}+k360^{\\circ} \\ (k\\in\\mathbb{Z})$.", "B. $x=-24^{\\circ}+k360^{\\circ} \\ (k\\in\\mathbb{Z})$.", "C. $x=\\pm 24^{\\circ}+k360^{\\circ} \\ (k\\in\\mathbb{Z})$.", "D. $x=\\pm 24^{\\circ}+k180^{\\circ} \\ (k\\in\\mathbb{Z})$."], correct: 2, exp: "Phương trình lượng giác cơ bản $\\cos x = \\cos \\alpha \\Leftrightarrow x = \\pm \\alpha + k360^\\circ$. Vậy $x = \\pm 24^\\circ + k360^\\circ \\ (k \\in \\mathbb{Z})$." },
+        { id: 4, text: "Cho các hàm số $y=f(x)$ và $y=g(x)$ liên tục trên $\\mathbb{R}$. Có bao nhiêu khẳng định đúng trong các khẳng định sau?<br>I. $\\left(\\int f(x)dx\\right)^{\\prime}=f(x)+C$.<br>II. $\\int f^{\\prime}(x)dx=f^{\\prime}(x)$.<br>III. $\\int k\\cdot f(x)dx=k\\cdot \\int f(x)dx$.<br>IV. $\\int [f(x)\\pm g(x)]dx=\\int f(x)dx\\pm \\int g(x)dx$.", options: ["A. 2.", "B. 1.", "C. 0.", "D. 3."], correct: 0, exp: "Khẳng định I sai vì $\\left(\\int f(x)dx\\right)^{\\prime}=f(x)$. Khẳng định II sai vì $\\int f^{\\prime}(x)dx=f(x)+C$. Khẳng định III đúng với hằng số $k \\neq 0$. Khẳng định IV đúng. Vậy có 2 khẳng định đúng." },
+        { id: 5, text: "Tìm họ các nguyên hàm của hàm số $f(x)=3x+1$.", options: ["A. $\\int f(x)dx=\\frac{3}{2}(3x+1)^{2}+C$.", "B. $\\int f(x)dx=\\frac{1}{2}(3x+1)^{2}+C$.", "C. $\\int f(x)dx=(3x+1)^{2}+C$.", "D. $\\int f(x)dx=\\frac{1}{6}(3x+1)^{2}+C$."], correct: 3, exp: "Áp dụng công thức nguyên hàm hàm hợp: $\\int (ax+b)^n dx = \\frac{1}{a} \\frac{(ax+b)^{n+1}}{n+1} + C$. Ta có $\\int (3x+1)^1 dx = \\frac{1}{3} \\frac{(3x+1)^2}{2} + C = \\frac{1}{6}(3x+1)^2 + C$." },
+        { id: 6, text: "Trong không gian Oxyz, tọa độ tâm của mặt cầu $(S): x^{2}+y^{2}+z^{2}-2x-4y-6=0$ là", options: ["A. $(1;2;3)$.", "B. $(2;4;6)$.", "C. $(1;2;0)$.", "D. $(2;4;0)$."], correct: 2, exp: "Mặt cầu $x^2+y^2+z^2-2ax-2by-2cz+d=0$ có tâm $I(a; b; c)$. So sánh hệ số: $-2a=-2 \\Rightarrow a=1$, $-2b=-4 \\Rightarrow b=2$, $-2c=0 \\Rightarrow c=0$. Vậy tâm là $(1; 2; 0)$." },
+        { id: 7, text: "Hàm số nào có bảng biến thiên là hình sau đây?<br><div class='text-center my-3'><img src='7I.png' alt='Hình câu 7' class='inline-block max-h-48 border rounded' onerror=\"this.style.display='none'\"></div>", options: ["A. $y=\\frac{-x-2}{x-1}$.", "B. $y=\\frac{x+2}{x-1}$.", "C. $y=\\frac{x-2}{x+1}$.", "D. $y=\\frac{x-2}{x-1}$."], correct: 0, exp: "Từ BBT ta thấy hàm số có TCĐ là $x=1$ (loại C vì có TCĐ $x=-1$) và TCN là $y=-1$ (loại B, D vì có TCN $y=1$). Chỉ còn lại A. Đạo hàm của A là $y'=\\frac{3}{(x-1)^2} > 0$ thỏa mãn BBT." },
+        { id: 8, text: "Trong các dãy số sau, dãy số nào là một cấp số cộng?", options: ["A. $1; -2; -4; -6; -8$.", "B. $1; -3; -5; -7; -9$.", "C. $1; -3; -6; -9; -12$.", "D. $1; -3; -7; -11; -15$."], correct: 3, exp: "Cấp số cộng là dãy số có hiệu giữa hai số hạng liên tiếp bằng một hằng số $d$. Kiểm tra đáp án D: $-3-1 = -4$; $-7-(-3) = -4$; $-11-(-7) = -4$; $-15-(-11) = -4$. Dãy số có công sai $d=-4$ nên là một cấp số cộng." },
+        { id: 9, text: "Nghiệm của phương trình $10^{1-5x}=1000000$ là", options: ["A. $x=-2$.", "B. $x=1$.", "C. $x=-1$.", "D. $x=6$."], correct: 2, exp: "Ta có $10^{1-5x} = 1000000 \\Leftrightarrow 10^{1-5x} = 10^6 \\Leftrightarrow 1-5x = 6 \\Leftrightarrow -5x = 5 \\Leftrightarrow x = -1$." },
+        { id: 10, text: "Cho hàm số $y=f(x)$ có đồ thị như hình vẽ. Khẳng định nào sau đây đúng?<br><div class='text-center my-3'><img src='10I.png' alt='Hình câu 10' class='inline-block max-h-48 border rounded' onerror=\"this.style.display='none'\"></div>", options: ["A. Hàm số nghịch biến trên khoảng $(-1;1)$.", "B. Hàm số đồng biến trên khoảng $(-1;1)$.", "C. Hàm số đồng biến trên khoảng $(-1;3)$.", "D. Hàm số đồng biến trên khoảng $(-\\infty;-1)$ và $(1;+\\infty)$."], correct: 1, exp: "Quan sát đồ thị, đường cong đi lên từ trái qua phải khi $x$ chạy từ $-1$ đến $1$. Do đó hàm số đồng biến trên khoảng $(-1; 1)$." },
+        { id: 11, text: "Cho số thực dương a. Biểu thức $P=\\sqrt{a}\\cdot\\sqrt[3]{a^{2}}$ được viết dưới dạng lũy thừa với số mũ hữu tỷ là", options: ["A. $P=a^{\\frac{1}{2}}$.", "B. $P=a^{\\frac{7}{6}}$.", "C. $P=a^{\\frac{5}{6}}$.", "D. $P=a^{2}$."], correct: 1, exp: "Ta có $P = a^{\\frac{1}{2}} \\cdot a^{\\frac{2}{3}} = a^{\\frac{1}{2} + \\frac{2}{3}} = a^{\\frac{3}{6} + \\frac{4}{6}} = a^{\\frac{7}{6}}$." },
+        { id: 12, text: "Cho hàm số $y=f(x)$ liên tục trên đoạn $[-1;2]$ và có đồ thị như hình vẽ bên. Gọi M, m lần lượt là giá trị lớn nhất và giá trị nhỏ nhất của hàm số đã cho trên đoạn $[-1;2]$. Ta có $2M-3m$ bằng:<br><div class='text-center my-3'><img src='12I.png' alt='Hình câu 12' class='inline-block max-h-48 border rounded' onerror=\"this.style.display='none'\"></div>", options: ["A. 4.", "B. 12.", "C. 13.", "D. 5."], correct: 1, exp: "Dựa vào đồ thị trên đoạn $[-1; 2]$, điểm cao nhất có tung độ $y=3$ (tại $x=1$) và điểm thấp nhất có tung độ $y=-2$ (tại $x=2$). Vậy $M=3, m=-2$. Suy ra $2M - 3m = 2(3) - 3(-2) = 6 + 6 = 12$." }
+    ];
+
+    const part2Data = [
+        {
+            id: 1, text: "Trong không gian với hệ tọa độ Oxyz, cho mặt phẳng (P) có phương trình tổng quát là: $(m+1)x-2y+z-5=0$ với m là tham số.",
+            sub: [
+                { id: 'a', text: "a) Với mọi m thì phương trình đã cho luôn là phương trình tổng quát của mặt phẳng (P).", ans: true, exp: "Vectơ pháp tuyến của (P) là $\\vec{n}=(m+1; -2; 1)$. Vì thành phần y và z luôn khác 0 nên $\\vec{n} \\neq \\vec{0}$ với mọi m. Do đó phương trình luôn là phương trình của một mặt phẳng. (Mệnh đề ĐÚNG)" },
+                { id: 'b', text: "b) Khi $m=-3$, khoảng cách từ điểm $A(1;1;0)$ đến mặt phẳng (P) bằng 1.", ans: false, exp: "Khi $m=-3$, $(P): -2x-2y+z-5=0$. Khoảng cách $d = \\frac{|-2(1)-2(1)+0-5|}{\\sqrt{(-2)^2+(-2)^2+1^2}} = \\frac{|-9|}{3} = 3 \\neq 1$. (Mệnh đề SAI)" },
+                { id: 'c', text: "c) Với $m=0$, mặt phẳng (P) có cặp véc tơ chỉ phương là $\\vec{a}=(1;3;5)$, $\\vec{b}=(-3;-1;1)$.", ans: true, exp: "Khi $m=0$, $(P): x-2y+z-5=0$ có VTPT $\\vec{n}=(1;-2;1)$. Ta thấy $\\vec{a}\\cdot\\vec{n} = 1-6+5=0$ và $\\vec{b}\\cdot\\vec{n} = -3+2+1=0$. Hai véctơ này không cùng phương và vuông góc với $\\vec{n}$ nên chúng là cặp VTCP của (P). (Mệnh đề ĐÚNG)" },
+                { id: 'd', text: "d) Với $m=2$, mặt phẳng (P) có một véc tơ pháp tuyến là $\\vec{n}=(2;-2;1)$.", ans: false, exp: "Khi $m=2$, phương trình là $3x-2y+z-5=0$, nên VTPT là $(3;-2;1) \\neq (2;-2;1)$. (Mệnh đề SAI)" }
+            ]
+        },
+        {
+            id: 2, text: "Cho hàm số $y=\\frac{5-4x}{2x+3}$ có đồ thị là (C).",
+            sub: [
+                { id: 'a', text: "a) Đồ thị hàm số có tiệm cận ngang $y=-2$.", ans: true, exp: "Ta có $\\lim_{x \\to \\pm\\infty} y = \\frac{-4}{2} = -2$. Vậy tiệm cận ngang là $y=-2$. (Mệnh đề ĐÚNG)" },
+                { id: 'b', text: "b) Các đường tiệm cận của đồ thị hàm số tạo với hai trục toạ độ một hình chữ nhật có diện tích bằng 3.", ans: true, exp: "Tiệm cận đứng $x = -1.5$, tiệm cận ngang $y = -2$. Hình chữ nhật tạo với hai trục tọa độ có kích thước là $1.5$ và $2$. Diện tích $S = 1.5 \\times 2 = 3$. (Mệnh đề ĐÚNG)" },
+                { id: 'c', text: "c) Hàm số đã cho không có cực trị.", ans: true, exp: "Hàm số phân thức bậc nhất trên bậc nhất luôn đồng biến hoặc nghịch biến trên từng khoảng xác định nên không có cực trị. (Mệnh đề ĐÚNG)" },
+                { id: 'd', text: "d) Đồ thị hàm số có tiệm cận đứng $x=-3$.", ans: false, exp: "Nghiệm của mẫu số là $2x+3=0 \\Leftrightarrow x=-1.5$. Vậy tiệm cận đứng là $x=-1.5$ chứ không phải $x=-3$. (Mệnh đề SAI)" }
+            ]
+        },
+        {
+            id: 3, text: "Một nhóm học sinh gồm 12 nam và 13 nữ đi tham quan Công viên nước Hạ Long, tới lúc tham gia trò chơi mỗi học sinh chọn một trong hai trò chơi là Sóng thần hoặc Đảo hải tặc. Xác suất chọn trò chơi Sóng thần của mỗi học sinh nam là 0,6 và của mỗi học sinh nữ là 0,3. Chọn ngẫu nhiên một bạn của nhóm. Xét tính đúng, sai của mỗi khẳng định sau?",
+            sub: [
+                { id: 'a', text: "a) Xác suất để bạn được chọn là nữ là 0,5.", ans: false, exp: "Tổng số học sinh là $12+13=25$. Xác suất chọn 1 bạn nữ là $\\frac{13}{25} = 0,52 \\neq 0,5$. (Mệnh đề SAI)" },
+                { id: 'b', text: "b) Xác suất để bạn được chọn là nam là 0,48.", ans: true, exp: "Xác suất chọn 1 bạn nam là $\\frac{12}{25} = 0,48$. (Mệnh đề ĐÚNG)" },
+                { id: 'c', text: "c) Xác suất để bạn được chọn là nam và tham gia trò chơi Đảo hải tặc là 0,195.", ans: false, exp: "Xác suất này bằng xác suất chọn được bạn nam nhân với xác suất bạn đó chọn Đảo hải tặc (tức là không chọn Sóng thần): $0,48 \\times (1 - 0,6) = 0,48 \\times 0,4 = 0,192 \\neq 0,195$. (Mệnh đề SAI)" },
+                { id: 'd', text: "d) Xác suất để bạn được chọn là nữ và tham gia trò chơi Sóng thần là 0,156.", ans: true, exp: "Xác suất này bằng $P(\\text{Nữ}) \\times P(\\text{Sóng thần | Nữ}) = 0,52 \\times 0,3 = 0,156$. (Mệnh đề ĐÚNG)" }
+            ]
+        },
+        {
+            id: 4, text: "Một ô tô đang chạy với vận tốc $20 \\text{ m/s}$ thì người ta nhìn thấy một chướng ngại vật nên đạp phanh. Từ thời điểm đó, ô tô chuyển động chậm dần đều với vận tốc $v(t)=-2t+20$, trong đó t là thời gian kể từ lúc đạp phanh.",
+            sub: [
+                { id: 'a', text: "a) Quãng đường mà ô tô đi được trong 15 giây cuối bằng 125 m.", ans: false, exp: "Ô tô dừng lại khi $v(t)=0 \\Leftrightarrow t=10$ (giây). Kể từ lúc phanh, xe chỉ chuyển động thêm 10 giây. Đề bài nói 15 giây cuối là vô lý hoặc nếu tính tổng quãng đường thì $\\int_{0}^{10}(-2t+20)dt = 100$ (m). Giá trị 125 m là sai. (Mệnh đề SAI)" },
+                { id: 'b', text: "b) Từ thời điểm đạp phanh đến khi dừng lại, ô tô đi được quãng đường là 90m.", ans: false, exp: "Quãng đường là $S = \\int_{0}^{10} (-2t+20)dt = (-t^2+20t)\\big|_{0}^{10} = 100$ (m), không phải 90 m. (Mệnh đề SAI)" },
+                { id: 'c', text: "c) Ô tô dừng lại sau 10 giây.", ans: true, exp: "Khi dừng lại $v(t)=0 \\Leftrightarrow -2t+20=0 \\Leftrightarrow t=10$. (Mệnh đề ĐÚNG)" },
+                { id: 'd', text: "d) Quãng đường $s(t)$ mà xe ô tô đi được trong thời gian t là một nguyên hàm của hàm số $v(t)$.", ans: true, exp: "Vận tốc là đạo hàm của quãng đường theo thời gian, nên quãng đường là một nguyên hàm của vận tốc. (Mệnh đề ĐÚNG)" }
+            ]
+        }
+    ];
+
+    const part3Data = [
+        { id: 1, text: "Cho hình chóp S.ABC có đáy ABC là tam giác vuông cân tại B, SA vuông góc với đáy. Gọi M là trung điểm AC. Góc giữa hai mặt phẳng (SBM) và (SAC) là bao nhiêu độ.", ans: "90", exp: "Tam giác ABC vuông cân tại B nên đường trung tuyến BM cũng là đường cao, do đó $BM \\perp AC$. Mà $SA \\perp (ABC) \\Rightarrow SA \\perp BM$. Từ đó suy ra $BM \\perp (SAC)$. Vì $BM$ nằm trong mặt phẳng (SBM) nên hai mặt phẳng (SBM) và (SAC) vuông góc với nhau. Vậy góc bằng $90^\\circ$." },
+        { id: 2, text: "Một nhà máy sản xuất bóng đèn có tỉ lệ bóng đèn đạt tiêu chuẩn là 80%. Trước khi xuất ra thị trường, mỗi bóng đèn đều được kiểm tra chất lượng. Vì sự kiểm tra không thể tuyệt đối hoàn hảo nên tỉ lệ công nhận một bóng đèn đạt tiêu chuẩn là 0,9 và tỉ lệ loại bỏ một bóng hỏng là 0,95. Hãy tính tỉ lệ bóng đạt tiêu chuẩn sau khi qua khâu kiểm tra chất lượng (nhập đáp án ở dạng phân số tối giản a/b).", ans: "72/73", exp: "Gọi $C$ là bóng chuẩn, $H$ là bóng hỏng. $P(C)=0.8, P(H)=0.2$. Xác suất được nhận khi kiểm tra: $P(N) = P(C)P(N|C) + P(H)P(N|H) = 0.8 \\times 0.9 + 0.2 \\times (1 - 0.95) = 0.72 + 0.01 = 0.73$. Tỉ lệ bóng đạt chuẩn trong số bóng được nhận là $P(C|N) = \\frac{0.72}{0.73} = \\frac{72}{73}$." },
+        { id: 3, text: "Tính diện tích phần gạch sọc trong hình vẽ sau:<br><div class='text-center my-3'><img src='3III.png' alt='Hình câu 3 phần III' class='inline-block max-h-64 border rounded' onerror=\"this.style.display='none'\"></div>", ans: "8", exp: "Từ hình vẽ ta xác định phương trình 2 parabol: $f(x) = (x-2)^2-1 = x^2-4x+3$ và $g(x) = -(x-2)^2+1 = -x^2+4x-3$. Hai đồ thị cắt nhau tại $x=1, x=3$. Phần gạch sọc từ $x=0$ đến $x=4$. Diện tích $S = \\int_0^1 (f(x)-g(x))dx + \\int_1^3 (g(x)-f(x))dx + \\int_3^4 (f(x)-g(x))dx = \\frac{8}{3} + \\frac{8}{3} + \\frac{8}{3} = 8$." },
+        { id: 4, text: "Người ta muốn xây một cái bể hình hộp đứng có thể tích $V=18 \\text{ m}^3$, biết đáy bể là hình chữ nhật có chiều dài gấp 3 lần chiều rộng và bể không có nắp. Giả sử nguyên vật liệu để làm mặt đáy và các mặt xung quanh của bể là như nhau. Hỏi cần xây bể có chiều cao h bằng bao nhiêu mét để nguyên vật liệu xây dựng là ít nhất ?", ans: "1.5", exp: "Gọi chiều rộng là $x$, chiều dài là $3x$, chiều cao là $h$. Thể tích $V = 3x^2h = 18 \\Rightarrow h = \\frac{6}{x^2}$. Diện tích cần xây (không nắp): $S = 3x^2 + 2(x+3x)h = 3x^2 + 8xh = 3x^2 + \\frac{48}{x}$. Áp dụng AM-GM: $S = 3x^2 + \\frac{24}{x} + \\frac{24}{x} \\ge 3\\sqrt[3]{3x^2 \\cdot \\frac{24}{x} \\cdot \\frac{24}{x}} = 36$. Dấu '=' xảy ra khi $3x^2 = \\frac{24}{x} \\Leftrightarrow x^3=8 \\Leftrightarrow x=2$. Khi đó $h = \\frac{6}{2^2} = 1.5$ (m)." },
+        { id: 5, text: "Trong không gian Oxyz, cho $A(1;2;3)$ và $B(2;4;x)$. Giá trị của x để ba điểm O; A; B thẳng hàng là", ans: "6", exp: "Để O, A, B thẳng hàng thì $\\vec{OB}$ phải cùng phương với $\\vec{OA}$. Nghĩa là tồn tại k sao cho $\\vec{OB} = k\\vec{OA} \\Leftrightarrow (2; 4; x) = k(1; 2; 3)$. Từ $2 = k \\cdot 1 \\Rightarrow k=2$. Suy ra $x = 2 \\cdot 3 = 6$." },
+        { id: 6, text: "Một nguồn âm phát ra sóng âm là sóng cầu. Khi gắn hệ trục toạ độ Oxyz. Cường độ âm chuẩn tại điểm $I(3;4;5)$ là tâm của nguồn phát âm với bán kính 10 m. Để kiểm tra một điểm ở vị trí $M(7;10;17)$ có nhận được cường độ âm phát ra tại I hay không người ta sẽ tính khoảng cách giữa hai vị trí I và M. Hỏi khoảng cách giữa hai vị trí I và M là bao nhiêu mét?", ans: "14", exp: "Áp dụng công thức tính khoảng cách giữa hai điểm trong không gian Oxyz: $IM = \\sqrt{(7-3)^2 + (10-4)^2 + (17-5)^2} = \\sqrt{4^2 + 6^2 + 12^2} = \\sqrt{16 + 36 + 144} = \\sqrt{196} = 14$ (m)." }
+    ];
+
+    // RENDER UI
+    function renderApp() {
+        const p1Container = document.getElementById('part1-container');
+        part1Data.forEach((q, index) => {
+            let optionsHtml = '';
+            q.options.forEach((opt, optIdx) => {
+                optionsHtml += `
+                    <label class="block p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition mb-2" id="label-p1-${q.id}-${optIdx}">
+                        <input type="radio" name="p1q${q.id}" value="${optIdx}" class="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500">
+                        ${opt}
+                    </label>
+                `;
+            });
+            p1Container.innerHTML += `
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <p class="font-bold mb-3 text-lg">Câu ${index + 1}: <span class="font-normal text-base">${q.text}</span></p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        ${optionsHtml}
+                    </div>
+                    <div id="exp-p1-${q.id}" class="explanation shadow-inner">
+                        <span class="font-bold text-green-700">Giải thích:</span> ${q.exp}
+                    </div>
+                </div>
+            `;
+        });
+
+        const p2Container = document.getElementById('part2-container');
+        part2Data.forEach((q, index) => {
+            let subHtml = '';
+            q.sub.forEach((subQ) => {
+                subHtml += `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 border rounded-lg mb-2" id="label-p2-${q.id}-${subQ.id}">
+                        <p class="mb-2 sm:mb-0 sm:w-3/4">${subQ.text}</p>
+                        <div class="flex space-x-4 sm:w-1/4 sm:justify-end">
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="radio" name="p2q${q.id}-${subQ.id}" value="true" class="mr-1 h-4 w-4 text-blue-600 focus:ring-blue-500"> Đúng
+                            </label>
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="radio" name="p2q${q.id}-${subQ.id}" value="false" class="mr-1 h-4 w-4 text-red-600 focus:ring-red-500"> Sai
+                            </label>
+                        </div>
+                    </div>
+                    <div id="exp-p2-${q.id}-${subQ.id}" class="explanation shadow-inner text-sm mb-4 ml-4">
+                        <span class="font-bold text-green-700">Giải thích (${subQ.id}):</span> ${subQ.exp}
+                    </div>
+                `;
+            });
+
+            p2Container.innerHTML += `
+                <div class="mb-8 p-5 bg-gray-50 rounded-xl border border-gray-200">
+                    <p class="font-bold mb-4 text-lg">Câu ${index + 1}: <span class="font-normal text-base">${q.text}</span></p>
+                    ${subHtml}
+                </div>
+            `;
+        });
+
+        const p3Container = document.getElementById('part3-container');
+        part3Data.forEach((q, index) => {
+            p3Container.innerHTML += `
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <p class="font-bold mb-3 text-lg">Câu ${index + 1}: <span class="font-normal text-base">${q.text}</span></p>
+                    <div class="flex items-center mt-2">
+                        <span class="mr-3 font-semibold">Trả lời:</span>
+                        <input type="text" id="p3q${q.id}" placeholder="Nhập đáp án..." class="focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div id="exp-p3-${q.id}" class="explanation shadow-inner mt-4">
+                        <span class="font-bold text-green-700">Đáp án: ${q.ans}</span> <br>
+                        <span class="font-bold text-gray-700">Giải thích:</span> ${q.exp}
+                    </div>
+                </div>
+            `;
+        });
+
+        // Tự động gọi lại MathJax để render công thức sau khi UI đã được nạp xong
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            window.MathJax.typesetPromise().then(() => {
+                console.log('MathJax đã render xong công thức toán học');
+            });
+        }
+    }
+
+    // SCORING LOGIC
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        if(confirm("Bạn có chắc chắn muốn nộp bài và xem điểm không?")) {
+            this.disabled = true;
+            this.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            let totalScore = 0;
+
+            // Chấm Phần 1 (0.25đ / câu)
+            part1Data.forEach((q) => {
+                const selected = document.querySelector(`input[name="p1q${q.id}"]:checked`);
+                // Hiển thị lời giải
+                document.getElementById(`exp-p1-${q.id}`).classList.add('show');
+                
+                // Highlight đáp án đúng
+                document.getElementById(`label-p1-${q.id}-${q.correct}`).classList.add('correct-bg');
+
+                if (selected) {
+                    const val = parseInt(selected.value);
+                    if (val === q.correct) {
+                        totalScore += 0.25;
+                    } else {
+                        // Highlight đáp án sai người dùng đã chọn
+                        document.getElementById(`label-p1-${q.id}-${val}`).classList.add('wrong-bg');
+                    }
+                }
+            });
+
+            // Chấm Phần 2 (1đ/câu: sai 0->1đ, sai 1->0.5đ, sai 2->0.25đ, sai 3->0.1đ, sai 4->0)
+            part2Data.forEach((q) => {
+                let wrongSubCount = 0;
+                
+                q.sub.forEach((subQ) => {
+                    const selected = document.querySelector(`input[name="p2q${q.id}-${subQ.id}"]:checked`);
+                    document.getElementById(`exp-p2-${q.id}-${subQ.id}`).classList.add('show');
+                    
+                    const labelDiv = document.getElementById(`label-p2-${q.id}-${subQ.id}`);
+
+                    if (selected) {
+                        const val = selected.value === 'true';
+                        if (val !== subQ.ans) {
+                            wrongSubCount++;
+                            labelDiv.classList.add('wrong-bg');
+                        } else {
+                            labelDiv.classList.add('correct-bg');
+                        }
+                    } else {
+                        wrongSubCount++; // Không chọn tính là sai
+                        labelDiv.classList.add('bg-gray-200');
+                    }
+                });
+
+                if (wrongSubCount === 0) totalScore += 1.0;
+                else if (wrongSubCount === 1) totalScore += 0.5;
+                else if (wrongSubCount === 2) totalScore += 0.25;
+                else if (wrongSubCount === 3) totalScore += 0.1;
+                // wrong == 4 -> 0
+            });
+
+            // Chấm Phần 3 (0.5đ / câu)
+            part3Data.forEach((q) => {
+                const inputEle = document.getElementById(`p3q${q.id}`);
+                let userAns = inputEle.value.trim().replace(',', '.'); // Chuẩn hóa dấu phẩy thành chấm
+                
+                document.getElementById(`exp-p3-${q.id}`).classList.add('show');
+                
+                inputEle.disabled = true;
+                
+                // So sánh dạng số nếu có thể, hoặc string exact match
+                if (userAns === q.ans || parseFloat(userAns) === parseFloat(q.ans)) {
+                    totalScore += 0.5;
+                    inputEle.classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+                } else {
+                    inputEle.classList.add('bg-red-100', 'border-red-500', 'text-red-700');
+                }
+            });
+
+            // Hiển thị kết quả
+            const resBox = document.getElementById('result-box');
+            const scoreText = document.getElementById('score-text');
+            resBox.classList.remove('hidden');
+            scoreText.innerHTML = `Tổng điểm: ${totalScore.toFixed(2)} / 10.00`;
+            
+            // Scroll xuống kết quả
+            resBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Re-render toán học trong phần giải thích bằng MathJax
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise().then(() => {
+                    console.log('MathJax rendered explanations');
+                });
+            }
+        }
+    });
+
+    // Khởi chạy App
+    window.onload = () => {
+        renderApp();
+    };
+
+</script>
+</body>
+</html>
